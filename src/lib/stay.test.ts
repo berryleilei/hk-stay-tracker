@@ -126,6 +126,34 @@ describe('computeStats 综合场景', () => {
   });
 });
 
+describe('上一次离港', () => {
+  it('取最近一条离境记录 + 距今天数', () => {
+    // 2025-01-31 出、2026-04-10 出 → 最近离港 2026-04-10
+    const m = member([
+      C('2025-01-01', 'in'),
+      C('2025-01-31', 'out'),
+      C('2026-02-15', 'in'),
+      C('2026-04-10', 'out'),
+    ]);
+    const s = computeStats(m, '2026-06-16');
+    expect(s.lastDeparture).toBe('2026-04-10');
+    expect(s.daysSinceLastDeparture).toBe(67); // 04-10 → 06-16
+  });
+
+  it('从未离港返回 null', () => {
+    const s = computeStats(member([C('2026-06-01', 'in')]), '2026-06-16');
+    expect(s.lastDeparture).toBeNull();
+    expect(s.daysSinceLastDeparture).toBeNull();
+  });
+
+  it('当前在港时仍指向上一次离开', () => {
+    const m = member([C('2026-02-15', 'in'), C('2026-04-10', 'out'), C('2026-05-02', 'in')]);
+    const s = computeStats(m, '2026-06-16');
+    expect(s.inHK).toBe(true);
+    expect(s.lastDeparture).toBe('2026-04-10');
+  });
+});
+
 describe('滚动 12 个月剔除窗口外旧记录', () => {
   it('一年前的在港天数不计入滚动 12 个月', () => {
     // 早期 2024 年待了一整段,今天 2026-06-16,该段在窗口外

@@ -93,6 +93,10 @@ export interface MemberStats {
   awayDays: number;
   /** 首次入境日 */
   firstEntry: string | null;
+  /** 上一次离港日期(最近一条离境记录;从未离港则为 null) */
+  lastDeparture: string | null;
+  /** 距上一次离港至今多少天(today − 上次离港日;从未离港则为 null) */
+  daysSinceLastDeparture: number | null;
   /** 累计在港总天数(去重) */
   totalInHK: number;
   /** 累计离港天数(自首次入境至今的总跨度 − 在港天数) */
@@ -119,6 +123,7 @@ const PR_YEARS = 7;
 export function computeStats(member: Member, todayIso: string): MemberStats {
   const today = toDay(todayIso);
   const sorted = sortCrossings(member.crossings);
+  const lastOut = [...sorted].reverse().find((c) => c.direction === 'out') ?? null;
   const segs = buildSegments(sorted, todayIso);
   const merged = mergeDays(segs);
 
@@ -166,6 +171,8 @@ export function computeStats(member: Member, todayIso: string): MemberStats {
     currentStreak,
     awayDays,
     firstEntry: firstEntryDay !== null ? fromDay(firstEntryDay) : null,
+    lastDeparture: lastOut ? lastOut.date : null,
+    daysSinceLastDeparture: lastOut ? today - toDay(lastOut.date) : null,
     totalInHK,
     totalAway: firstEntryDay !== null ? Math.max(0, today - firstEntryDay + 1 - totalInHK) : 0,
     crossingCount: sorted.length,
