@@ -3,9 +3,10 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 // PWA:可装手机主屏、离线可用。数据全程存本机 localStorage,不联网。
-// GitHub Pages 项目站点在 /hk-stay-tracker/ 子路径下,构建时需设 base;本地 dev 保持根路径。
-export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/hk-stay-tracker/' : '/',
+// base 由环境变量决定:Cloudflare Pages(自定义域根路径)用默认 '/';
+// GitHub Pages(项目子路径)在 CI 里设 DEPLOY_BASE=/hk-stay-tracker/。
+export default defineConfig(() => ({
+  base: process.env.DEPLOY_BASE || '/',
   plugins: [
     react(),
     VitePWA({

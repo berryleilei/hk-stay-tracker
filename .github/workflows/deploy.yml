@@ -27,6 +27,8 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+        env:
+          DEPLOY_BASE: /hk-stay-tracker/
       - uses: actions/configure-pages@v5
         with:
           enablement: true
