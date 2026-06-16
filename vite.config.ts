@@ -21,10 +21,11 @@ export default defineConfig(() => ({
         display: 'standalone',
         lang: 'zh-Hant',
         start_url: '/',
-        // 用单个 SVG 图标(现代浏览器 manifest 支持)。后续要更广覆盖可补 192/512 PNG。
         icons: [
-          { src: 'favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' },
-          { src: 'favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'maskable' },
+          { src: 'pwa-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'pwa-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'pwa-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          { src: 'favicon.svg', sizes: 'any', type: 'image/svg+xml' },
         ],
       },
     }),
