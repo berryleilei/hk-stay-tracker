@@ -67,6 +67,14 @@ opendesign/             设计 mockup(可 python -m http.server 预览)
 
 > ⚠️ 本工具仅作个人记录与自查,**不构成续签 / 税务 / 永居资格的法律意见**。请以入境处、税务局及专业顾问为准。
 
+## 部署
+
+正式站:**https://days.thats.hk**(Cloudflare Pages + 自定义域)。
+
+访问受 **Cloudflare Access** 保护:只有放行名单里的邮箱能登录(打开站点先收一次性验证码),外人即使知道网址也进不去。`days-80c.pages.dev` 默认域同样受 Access 保护。
+
+更新方式:本地 `npm run build` 后 `npx wrangler pages deploy dist --project-name=days`(需 Cloudflare token)。`git push` 只触发 CI(lint + 测试 + 构建)守门,不再公开发布(原 github.io 站已下线)。
+
 ## 数据与隐私
 
 - 数据仅存本机浏览器 `localStorage`,不上传任何服务器。
