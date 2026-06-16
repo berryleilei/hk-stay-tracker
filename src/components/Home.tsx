@@ -1,8 +1,10 @@
 import { AppData, Member, Reminder, ROLE_LABEL } from '../types';
 import { ymBetween } from '../lib/date';
 import { computeStats, PR_TOTAL_YEARS } from '../lib/stay';
+import { RateData } from '../lib/rates';
 import { Avatar, Card, GroupLabel, ProgressBar, StatusPill } from './primitives';
 import { ReminderList } from './ReminderList';
+import { RatesCard } from './RatesCard';
 
 /** 'YYYY-MM-DD' → 'M月D日' */
 function monthDay(iso: string): string {
@@ -13,7 +15,10 @@ function monthDay(iso: string): string {
 export function Home({
   data,
   today,
+  rate,
+  rateError,
   onOpenPerson,
+  onOpenRates,
   onAddMember,
   onAddReminder,
   onEditReminder,
@@ -22,7 +27,10 @@ export function Home({
 }: {
   data: AppData;
   today: string;
+  rate: RateData | null;
+  rateError: boolean;
   onOpenPerson: (id: string) => void;
+  onOpenRates: () => void;
   onAddMember: () => void;
   onAddReminder: () => void;
   onEditReminder: (reminder: Reminder) => void;
@@ -56,6 +64,11 @@ export function Home({
             ＋ 添加成员
           </button>
         </div>
+      </div>
+
+      <div className="mt-7 px-4">
+        <GroupLabel>汇率 · 港币兑人民币</GroupLabel>
+        <RatesCard rate={rate} error={rateError} today={today} onOpen={onOpenRates} />
       </div>
 
       <div className="mt-7">
