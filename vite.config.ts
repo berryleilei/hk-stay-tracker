@@ -3,7 +3,9 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
 // PWA:可装手机主屏、离线可用。数据全程存本机 localStorage,不联网。
-export default defineConfig({
+// GitHub Pages 项目站点在 /hk-stay-tracker/ 子路径下,构建时需设 base;本地 dev 保持根路径。
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/hk-stay-tracker/' : '/',
   plugins: [
     react(),
     VitePWA({
@@ -26,4 +28,4 @@ export default defineConfig({
       },
     }),
   ],
-});
+}));
