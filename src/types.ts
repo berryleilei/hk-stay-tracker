@@ -28,13 +28,35 @@ export interface Member {
   crossings: Crossing[];
 }
 
+/** 到期提醒类型 */
+export type ReminderType = 'visa' | 'sim' | 'other';
+
+export interface Reminder {
+  id: string;
+  type: ReminderType;
+  /** 到期日 'YYYY-MM-DD' */
+  date: string;
+  /** 关联成员 id;不填 = 全家共享(如签证) */
+  memberId?: string;
+  /** 自定义标题(选填,默认按类型生成) */
+  title?: string;
+}
+
 export interface AppData {
   /** schema 版本,用于将来迁移 localStorage 数据 */
   version: number;
   members: Member[];
-  /** 全家签证续签到期日 'YYYY-MM-DD'(受养人跟随主申请人) */
+  /** 到期提醒:签证续签 / 储值电话卡 / 其它 */
+  reminders: Reminder[];
+  /** @deprecated 旧字段,load 时迁移进 reminders */
   visaExpiry?: string;
 }
+
+export const REMINDER_TYPE_LABEL: Record<ReminderType, string> = {
+  visa: '签证续签',
+  sim: '储值电话卡',
+  other: '其它',
+};
 
 export const ROLE_LABEL: Record<MemberRole, string> = {
   principal: '主申请人',

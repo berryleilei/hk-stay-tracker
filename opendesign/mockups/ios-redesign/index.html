@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>在港天数 · iOS / DreamDays 风 mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: {
+      sans: ['-apple-system','BlinkMacSystemFont','"SF Pro Text"','"PingFang HK"','"Noto Sans TC"','sans-serif'],
+      rounded: ['-apple-system','"SF Pro Rounded"','"PingFang HK"','sans-serif'],
+    } } } };
+  </script>
+  <style>
+    body { -webkit-font-smoothing: antialiased; background: #F2F2F7; }
+    .tabular { font-variant-numeric: tabular-nums; }
+    .sep { background: rgba(60,60,67,0.20); }
+    [hidden] { display: none !important; }
+    /* iOS inset grouped list 卡 */
+    .card { background:#fff; border-radius:20px; box-shadow:0 1px 2px rgba(0,0,0,0.04); }
+  </style>
+</head>
+<body class="font-sans text-black">
+
+<!-- ════════ 主屏:家庭总览 ════════ -->
+<div id="home" class="mx-auto min-h-screen max-w-md pb-32 sm:max-w-lg">
+
+  <!-- 状态栏留白 + Large Title -->
+  <div class="px-5 pt-14">
+    <div class="flex items-end justify-between">
+      <h1 class="text-[34px] font-bold leading-none tracking-tight">在港天数</h1>
+      <span class="pb-1 font-mono text-[13px] tabular text-[rgba(60,60,67,0.6)]">6月16日</span>
+    </div>
+    <p class="mt-1.5 text-[15px] text-[rgba(60,60,67,0.6)]">全家出入境 · 续签与税务自查</p>
+  </div>
+
+  <!-- 家庭成员 -->
+  <p class="mb-2 mt-7 px-5 text-[13px] font-medium uppercase tracking-wide text-[rgba(60,60,67,0.6)]">家庭成员</p>
+  <div class="px-4">
+
+    <!-- 成员卡 · 我 -->
+    <button onclick="openDetail()" class="mb-3 block w-full card p-4 text-left transition active:scale-[0.98]">
+      <div class="flex items-center gap-3">
+        <span class="flex h-11 w-11 items-center justify-center rounded-full bg-black text-[15px] font-semibold text-white">我</span>
+        <div class="flex-1">
+          <p class="text-[17px] font-semibold leading-tight">我</p>
+          <p class="text-[13px] text-[rgba(60,60,67,0.6)]">主申请人</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="rounded-full bg-[#34C759]/15 px-2.5 py-1 text-[13px] font-semibold text-[#1a8c3a]">在港 46 天</span>
+          <span class="text-[20px] leading-none text-[rgba(60,60,67,0.3)]">›</span>
+        </div>
+      </div>
+      <div class="mt-4 flex items-end justify-between">
+        <div>
+          <p class="text-[12px] text-[rgba(60,60,67,0.6)]">滚动 12 月在港</p>
+          <p class="font-rounded text-[22px] font-bold leading-tight tabular">198<span class="ml-1 text-[13px] font-normal text-[rgba(60,60,67,0.4)]">/ 365 天</span></p>
+        </div>
+        <div class="text-right">
+          <p class="text-[12px] text-[rgba(60,60,67,0.6)]">永居进度</p>
+          <p class="font-rounded text-[15px] font-semibold tabular text-[rgba(60,60,67,0.7)]">1 年 10 月 / 7 年</p>
+        </div>
+      </div>
+      <div class="mt-2.5 h-2 w-full overflow-hidden rounded-full bg-[#787880]/15"><div class="h-full rounded-full bg-[#007AFF]" style="width:26%"></div></div>
+    </button>
+
+    <!-- 成员卡 · 太太 -->
+    <button onclick="openDetail()" class="mb-3 block w-full card p-4 text-left transition active:scale-[0.98]">
+      <div class="flex items-center gap-3">
+        <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[#8E8E93] text-[15px] font-semibold text-white">太</span>
+        <div class="flex-1">
+          <p class="text-[17px] font-semibold leading-tight">太太</p>
+          <p class="text-[13px] text-[rgba(60,60,67,0.6)]">配偶 · 受养人</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="rounded-full bg-[#34C759]/15 px-2.5 py-1 text-[13px] font-semibold text-[#1a8c3a]">在港 46 天</span>
+          <span class="text-[20px] leading-none text-[rgba(60,60,67,0.3)]">›</span>
+        </div>
+      </div>
+      <div class="mt-4 flex items-end justify-between">
+        <div>
+          <p class="text-[12px] text-[rgba(60,60,67,0.6)]">滚动 12 月在港</p>
+          <p class="font-rounded text-[22px] font-bold leading-tight tabular">175<span class="ml-1 text-[13px] font-normal text-[rgba(60,60,67,0.4)]">/ 365 天</span></p>
+        </div>
+        <div class="text-right">
+          <p class="text-[12px] text-[rgba(60,60,67,0.6)]">永居进度</p>
+          <p class="font-rounded text-[15px] font-semibold tabular text-[rgba(60,60,67,0.7)]">1 年 10 月 / 7 年</p>
+        </div>
+      </div>
+      <div class="mt-2.5 h-2 w-full overflow-hidden rounded-full bg-[#787880]/15"><div class="h-full rounded-full bg-[#007AFF]" style="width:26%"></div></div>
+    </button>
+
+    <!-- 成员卡 · 囡囡(离港) -->
+    <button onclick="openDetail()" class="mb-3 block w-full card p-4 text-left transition active:scale-[0.98]">
+      <div class="flex items-center gap-3">
+        <span class="flex h-11 w-11 items-center justify-center rounded-full bg-[#C7C7CC] text-[15px] font-semibold text-white">囡</span>
+        <div class="flex-1">
+          <p class="text-[17px] font-semibold leading-tight">囡囡</p>
+          <p class="text-[13px] text-[rgba(60,60,67,0.6)]">子女 · 受养人</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="rounded-full bg-[#787880]/12 px-2.5 py-1 text-[13px] font-semibold text-[rgba(60,60,67,0.6)]">已离港 6 天</span>
+          <span class="text-[20px] leading-none text-[rgba(60,60,67,0.3)]">›</span>
+        </div>
+      </div>
+      <div class="mt-4 flex items-end justify-between">
+        <div>
+          <p class="text-[12px] text-[rgba(60,60,67,0.6)]">滚动 12 月在港</p>
+          <p class="font-rounded text-[22px] font-bold leading-tight tabular">210<span class="ml-1 text-[13px] font-normal text-[rgba(60,60,67,0.4)]">/ 365 天</span></p>
+        </div>
+        <div class="text-right">
+          <p class="text-[12px] text-[rgba(60,60,67,0.6)]">永居进度</p>
+          <p class="font-rounded text-[15px] font-semibold tabular text-[rgba(60,60,67,0.7)]">1 年 10 月 / 7 年</p>
+        </div>
+      </div>
+      <div class="mt-2.5 h-2 w-full overflow-hidden rounded-full bg-[#787880]/15"><div class="h-full rounded-full bg-[#007AFF]" style="width:26%"></div></div>
+    </button>
+
+    <button class="mb-1 block w-full rounded-[16px] border border-dashed border-[rgba(60,60,67,0.25)] py-3 text-[15px] font-semibold text-[#007AFF]">＋ 添加成员</button>
+  </div>
+
+  <!-- 到期提醒(DreamDays 倒数卡) -->
+  <p class="mb-2 mt-7 px-5 text-[13px] font-medium uppercase tracking-wide text-[rgba(60,60,67,0.6)]">到期提醒</p>
+  <div class="space-y-3 px-4">
+
+    <!-- 签证(正常,蓝)-->
+    <div class="flex items-center justify-between rounded-[20px] bg-[#007AFF]/[0.08] p-4">
+      <div>
+        <p class="text-[12px] font-medium uppercase tracking-wide text-[#007AFF]">签证续签</p>
+        <p class="mt-0.5 text-[17px] font-semibold">续签到期 · 全家</p>
+        <p class="font-mono text-[12px] tabular text-[rgba(60,60,67,0.5)]">2027-03-31</p>
+      </div>
+      <div class="text-right">
+        <p class="font-rounded text-[40px] font-bold leading-none tabular text-[#007AFF]">288</p>
+        <p class="text-[12px] text-[rgba(60,60,67,0.5)]">天后</p>
+      </div>
+    </div>
+
+    <!-- 储值电话卡(临近,橙)-->
+    <div class="flex items-center justify-between rounded-[20px] bg-[#FF9500]/[0.10] p-4">
+      <div>
+        <p class="text-[12px] font-medium uppercase tracking-wide text-[#c2700a]">储值电话卡</p>
+        <p class="mt-0.5 text-[17px] font-semibold">充值有效期 · 我</p>
+        <p class="font-mono text-[12px] tabular text-[rgba(60,60,67,0.5)]">2026-07-01</p>
+      </div>
+      <div class="text-right">
+        <p class="font-rounded text-[40px] font-bold leading-none tabular text-[#FF9500]">15</p>
+        <p class="text-[12px] text-[rgba(60,60,67,0.5)]">天后到期</p>
+      </div>
+    </div>
+
+    <!-- 储值电话卡(紧急,红)-->
+    <div class="flex items-center justify-between rounded-[20px] bg-[#FF3B30]/[0.10] p-4">
+      <div>
+        <p class="text-[12px] font-medium uppercase tracking-wide text-[#d12b21]">储值电话卡</p>
+        <p class="mt-0.5 text-[17px] font-semibold">充值有效期 · 太太</p>
+        <p class="font-mono text-[12px] tabular text-[rgba(60,60,67,0.5)]">2026-06-20</p>
+      </div>
+      <div class="text-right">
+        <p class="font-rounded text-[40px] font-bold leading-none tabular text-[#FF3B30]">4</p>
+        <p class="text-[12px] text-[rgba(60,60,67,0.5)]">天后到期</p>
+      </div>
+    </div>
+
+    <button class="block w-full rounded-[16px] border border-dashed border-[rgba(60,60,67,0.25)] py-3 text-[15px] font-semibold text-[#007AFF]">＋ 添加提醒</button>
+  </div>
+
+  <p class="mt-7 px-6 text-[12px] leading-relaxed text-[rgba(60,60,67,0.45)]">
+    两端都算口径。数据仅存本机,不上传。本工具仅作个人记录与自查,不构成续签 / 税务 / 永居法律意见。
+  </p>
+</div>
+
+<!-- ════════ 详情屏:某成员 ════════ -->
+<div id="detail" hidden class="mx-auto min-h-screen max-w-md pb-32 sm:max-w-lg">
+  <!-- 毛玻璃导航栏 -->
+  <div class="sticky top-0 z-10 flex items-center gap-1 border-b border-[rgba(60,60,67,0.12)] bg-[#F2F2F7]/80 px-3 pb-2.5 pt-12 backdrop-blur-xl">
+    <button onclick="back()" class="flex items-center text-[17px] text-[#007AFF]"><span class="text-[24px] leading-none">‹</span>返回</button>
+    <p class="flex-1 text-center text-[17px] font-semibold">我</p>
+    <button class="px-2 text-[17px] text-[#007AFF]">编辑</button>
+  </div>
+
+  <div class="px-4 pt-4">
+    <!-- 状态大卡(DreamDays 式巨数)-->
+    <div class="card mb-5 p-6 text-center">
+      <div class="mb-3 inline-flex items-center gap-1.5 rounded-full bg-[#34C759]/15 px-3 py-1 text-[13px] font-semibold text-[#1a8c3a]">
+        <span class="h-2 w-2 rounded-full bg-[#34C759]"></span>在港中
+      </div>
+      <p class="font-rounded text-[64px] font-bold leading-none tabular">46</p>
+      <p class="mt-2 text-[15px] text-[rgba(60,60,67,0.6)]">天 · 本次连续在港 · 自 2026-05-02</p>
+    </div>
+
+    <!-- 关键统计 grouped -->
+    <p class="mb-2 px-2 text-[13px] font-medium uppercase tracking-wide text-[rgba(60,60,67,0.6)]">关键统计</p>
+    <div class="card mb-5 divide-y divide-[rgba(60,60,67,0.12)]">
+      <div class="flex items-center justify-between px-4 py-3.5">
+        <span class="text-[16px]">累计在港总天数</span>
+        <span class="font-rounded text-[18px] font-semibold tabular">412 天</span>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3.5">
+        <span class="text-[16px]">累计离港天数</span>
+        <span class="font-rounded text-[18px] font-semibold tabular text-[rgba(60,60,67,0.5)]">258 天</span>
+      </div>
+      <div class="px-4 py-3.5">
+        <div class="flex items-center justify-between">
+          <span class="text-[16px]">滚动 12 月在港 <span class="text-[12px] text-[rgba(60,60,67,0.5)]">续签佐证</span></span>
+          <span class="font-rounded text-[18px] font-semibold tabular">198 / 365</span>
+        </div>
+        <div class="mt-2.5 h-2 w-full overflow-hidden rounded-full bg-[#787880]/15"><div class="h-full rounded-full bg-[#007AFF]" style="width:54%"></div></div>
+      </div>
+    </div>
+
+    <!-- 183 税务 -->
+    <div class="mb-5 rounded-[20px] bg-[#FF9500]/[0.10] p-4">
+      <div class="flex items-center justify-between">
+        <span class="text-[15px] font-semibold text-[#c2700a]">183 天税务阈值</span>
+        <span class="rounded-full bg-[#FF9500]/20 px-2.5 py-0.5 text-[12px] font-bold text-[#c2700a]">已达阈值</span>
+      </div>
+      <p class="mt-2 font-rounded text-[34px] font-bold leading-none tabular text-[#FF9500]">198<span class="ml-1 text-[15px] font-normal text-[#c2700a]/70">/ 183 天</span></p>
+      <div class="mt-2.5 h-2 w-full overflow-hidden rounded-full bg-[#FF9500]/20"><div class="h-full rounded-full bg-[#FF9500]" style="width:100%"></div></div>
+      <div class="mt-3 inline-flex rounded-[10px] bg-[#FF9500]/15 p-0.5 text-[13px] font-medium">
+        <span class="rounded-[8px] bg-white px-3 py-1 text-[#c2700a] shadow-sm">滚动 12 月</span>
+        <span class="px-3 py-1 text-[#c2700a]/70">公历年 2026</span>
+      </div>
+    </div>
+
+    <!-- 出入境时间轴 -->
+    <p class="mb-2 flex items-center justify-between px-2 text-[13px] font-medium uppercase tracking-wide text-[rgba(60,60,67,0.6)]">出入境记录<span class="text-[#007AFF] normal-case">＋ 补录</span></p>
+    <div class="card divide-y divide-[rgba(60,60,67,0.12)]">
+      <div class="flex items-center gap-3 px-4 py-3"><span class="font-mono text-[13px] tabular text-[rgba(60,60,67,0.7)]">2026-05-02</span><span class="flex items-center gap-1.5 text-[15px] font-semibold text-[#1a8c3a]"><span class="h-1.5 w-1.5 rounded-full bg-[#34C759]"></span>入境</span><span class="ml-auto font-mono text-[13px] tabular text-[rgba(60,60,67,0.5)]">至今 46 天</span></div>
+      <div class="flex items-center gap-3 px-4 py-3"><span class="font-mono text-[13px] tabular text-[rgba(60,60,67,0.7)]">2026-04-10</span><span class="flex items-center gap-1.5 text-[15px] font-semibold text-[rgba(60,60,67,0.6)]"><span class="h-1.5 w-1.5 rounded-full bg-[#C7C7CC]"></span>离境</span><span class="ml-auto font-mono text-[13px] tabular text-[rgba(60,60,67,0.5)]">离港 21 天</span></div>
+      <div class="flex items-center gap-3 px-4 py-3"><span class="font-mono text-[13px] tabular text-[rgba(60,60,67,0.7)]">2026-02-15</span><span class="flex items-center gap-1.5 text-[15px] font-semibold text-[#1a8c3a]"><span class="h-1.5 w-1.5 rounded-full bg-[#34C759]"></span>入境</span><span class="ml-auto font-mono text-[13px] tabular text-[rgba(60,60,67,0.5)]">在港 55 天</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 底部毛玻璃「记一笔」(safe-area)-->
+<div class="fixed inset-x-0 bottom-0 border-t border-[rgba(60,60,67,0.12)] bg-[#F2F2F7]/80 px-5 pb-[calc(12px+env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
+  <button class="mx-auto block w-full max-w-md rounded-[14px] bg-[#007AFF] py-3.5 text-center text-[17px] font-semibold text-white transition active:scale-[0.98]">＋ 记一笔</button>
+</div>
+
+<script>
+  function openDetail(){ document.getElementById('home').hidden=true; document.getElementById('detail').hidden=false; window.scrollTo(0,0); }
+  function back(){ document.getElementById('detail').hidden=true; document.getElementById('home').hidden=false; window.scrollTo(0,0); }
+</script>
+</body>
+</html>

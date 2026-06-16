@@ -1,10 +1,10 @@
 // 持久层:数据只存浏览器 localStorage,全程不联网、不上传。
 // 提供:读取(带默认种子)、保存、导出 JSON、导入 JSON(防丢:清缓存前可备份)。
 
-import { AppData, Crossing, Member } from '../types';
+import { AppData, Crossing, Member, Reminder } from '../types';
 
 const STORAGE_KEY = 'hk-stay-tracker:v1';
-const SCHEMA_VERSION = 1;
+const SCHEMA_VERSION = 2;
 
 /** 生成 id(优先用原生 crypto.randomUUID,降级到时间戳+随机) */
 export function newId(): string {
@@ -19,7 +19,22 @@ export function seedData(): AppData {
   return {
     version: SCHEMA_VERSION,
     members: [{ id: newId(), name: '我', role: 'principal', crossings: [] }],
+    reminders: [],
   };
+}
+
+/** 迁移:旧的 visaExpiry 字段 → reminders 里的一条签证提醒;补齐缺失的 reminders */
+function migrate(data: AppData): AppData {
+  const reminders: Reminder[] = Array.isArray(data.reminders) ? [...data.reminders] : [];
+  let next = { ...data, reminders };
+  if (data.visaExpiry) {
+    const already = reminders.some((r) => r.type === 'visa' && r.date === data.visaExpiry);
+    if (!already) reminders.push({ id: newId(), type: 'visa', date: data.visaExpiry });
+    const { visaExpiry: _drop, ...rest } = next;
+    void _drop;
+    next = { ...rest, reminders };
+  }
+  return { ...next, version: SCHEMA_VERSION };
 }
 
 /** 轻量校验:挡住结构不对的导入文件,避免污染状态 */
@@ -51,7 +66,7 @@ export function load(): AppData {
     if (!raw) return seedData();
     const parsed: unknown = JSON.parse(raw);
     if (!isValidAppData(parsed)) return seedData();
-    return parsed;
+    return migrate(parsed);
   } catch {
     return seedData();
   }
@@ -71,7 +86,7 @@ export function importJSON(text: string): AppData | null {
   try {
     const parsed: unknown = JSON.parse(text);
     if (!isValidAppData(parsed)) return null;
-    return { ...parsed, version: SCHEMA_VERSION };
+    return migrate(parsed);
   } catch {
     return null;
   }
@@ -98,5 +113,26 @@ export function upsertMember(data: AppData, member: Member): AppData {
 }
 
 export function removeMember(data: AppData, memberId: string): AppData {
-  return { ...data, members: data.members.filter((m) => m.id !== memberId) };
+  return {
+    ...data,
+    members: data.members.filter((m) => m.id !== memberId),
+    // 同时清掉关联到该成员的提醒
+    reminders: data.reminders.filter((r) => r.memberId !== memberId),
+  };
+}
+
+// ───────── 到期提醒 ─────────
+
+export function upsertReminder(data: AppData, reminder: Reminder): AppData {
+  const exists = data.reminders.some((r) => r.id === reminder.id);
+  return {
+    ...data,
+    reminders: exists
+      ? data.reminders.map((r) => (r.id === reminder.id ? reminder : r))
+      : [...data.reminders, reminder],
+  };
+}
+
+export function removeReminder(data: AppData, reminderId: string): AppData {
+  return { ...data, reminders: data.reminders.filter((r) => r.id !== reminderId) };
 }

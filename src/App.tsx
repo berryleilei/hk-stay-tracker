@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AppData, Direction, Member, MemberRole } from './types';
+import { AppData, Direction, Member, MemberRole, Reminder, ReminderType } from './types';
 import { todayISO } from './lib/now';
-import { toDay } from './lib/date';
 import {
   addCrossing,
   exportJSON,
@@ -10,13 +9,16 @@ import {
   newId,
   removeCrossing,
   removeMember,
+  removeReminder,
   save,
   upsertMember,
+  upsertReminder,
 } from './lib/storage';
 import { Home } from './components/Home';
 import { PersonDetail } from './components/PersonDetail';
 import { RecordSheet } from './components/RecordSheet';
 import { MemberSheet } from './components/MemberSheet';
+import { ReminderSheet } from './components/ReminderSheet';
 
 type View = { screen: 'home' } | { screen: 'person'; memberId: string };
 
@@ -31,11 +33,14 @@ export default function App() {
     open: false,
     member: null,
   });
+  const [reminderSheet, setReminderSheet] = useState<{ open: boolean; reminder: Reminder | null }>({
+    open: false,
+    reminder: null,
+  });
   const fileInput = useRef<HTMLInputElement>(null);
 
   const today = useMemo(() => todayISO(), []);
 
-  // 任何数据变更 → 落盘 localStorage(本机,不联网)
   useEffect(() => {
     save(data);
   }, [data]);
@@ -82,25 +87,28 @@ export default function App() {
     setView({ screen: 'home' });
   }
 
-  // ───────── 续签到期日 ─────────
-  function handleEditVisa() {
-    const input = window.prompt('签证续签到期日(YYYY-MM-DD,留空清除)', data.visaExpiry ?? '');
-    if (input === null) return;
-    const v = input.trim();
-    if (v === '') {
-      setData((prev) => {
-        const { visaExpiry: _drop, ...rest } = prev;
-        void _drop;
-        return rest;
-      });
-      return;
-    }
-    try {
-      toDay(v); // 校验合法日期
-      setData((prev) => ({ ...prev, visaExpiry: v }));
-    } catch {
-      window.alert('日期格式应为 YYYY-MM-DD,例如 2027-03-31。');
-    }
+  // ───────── 到期提醒 ─────────
+  function handleSaveReminder(fields: {
+    type: ReminderType;
+    date: string;
+    memberId?: string;
+    title?: string;
+  }) {
+    const base = reminderSheet.reminder;
+    const reminder: Reminder = {
+      id: base?.id ?? newId(),
+      type: fields.type,
+      date: fields.date,
+      ...(fields.memberId ? { memberId: fields.memberId } : {}),
+      ...(fields.title ? { title: fields.title } : {}),
+    };
+    setData((prev) => upsertReminder(prev, reminder));
+    setReminderSheet({ open: false, reminder: null });
+  }
+
+  function handleDeleteReminder(id: string) {
+    setData((prev) => removeReminder(prev, id));
+    setReminderSheet({ open: false, reminder: null });
   }
 
   // ───────── 备份导出 / 导入 ─────────
@@ -116,7 +124,7 @@ export default function App() {
 
   function handleImportFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    e.target.value = ''; // 允许重复选同一文件
+    e.target.value = '';
     if (!file) return;
     file.text().then((text) => {
       const imported = importJSON(text);
@@ -139,7 +147,8 @@ export default function App() {
           today={today}
           onOpenPerson={(id) => setView({ screen: 'person', memberId: id })}
           onAddMember={() => setMemberSheet({ open: true, member: null })}
-          onEditVisa={handleEditVisa}
+          onAddReminder={() => setReminderSheet({ open: true, reminder: null })}
+          onEditReminder={(reminder) => setReminderSheet({ open: true, reminder })}
           onExport={handleExport}
           onImport={() => fileInput.current?.click()}
         />
@@ -156,8 +165,8 @@ export default function App() {
         />
       )}
 
-      {/* 底部主操作:记一笔(贯穿全屏) */}
-      <div className="fixed inset-x-0 bottom-0 border-t border-black/[0.07] bg-white/90 px-5 py-3 backdrop-blur">
+      {/* 底部毛玻璃「记一笔」(安全区) */}
+      <div className="safe-bottom fixed inset-x-0 bottom-0 border-t border-[rgba(60,60,67,0.12)] bg-ios-bg/80 px-5 pt-3 backdrop-blur-xl">
         <button
           onClick={() =>
             setRecordSheet({
@@ -166,7 +175,7 @@ export default function App() {
                 view.screen === 'person' ? [view.memberId] : data.members.map((m) => m.id),
             })
           }
-          className="mx-auto flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-gray-900 py-3.5 text-[15px] font-bold text-white transition active:scale-[0.98]"
+          className="mx-auto block w-full max-w-md rounded-[14px] bg-ios-blue py-3.5 text-center text-[17px] font-semibold text-white transition active:scale-[0.98]"
         >
           ＋ 记一笔
         </button>
@@ -187,6 +196,17 @@ export default function App() {
           member={memberSheet.member}
           onClose={() => setMemberSheet({ open: false, member: null })}
           onSave={handleSaveMember}
+        />
+      )}
+
+      {reminderSheet.open && (
+        <ReminderSheet
+          reminder={reminderSheet.reminder}
+          members={data.members}
+          today={today}
+          onClose={() => setReminderSheet({ open: false, reminder: null })}
+          onSave={handleSaveReminder}
+          onDelete={handleDeleteReminder}
         />
       )}
 

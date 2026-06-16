@@ -8,7 +8,7 @@
 
 html,
 body {
-  background: #f6f6f5;
+  background: #f2f2f7;
 }
 
 body {
@@ -16,7 +16,45 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* editorial:细分隔线 + 等宽数字对齐 */
+/* 去掉移动端点击高亮块 */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS Safari:输入框字号 < 16px 聚焦时会自动放大页面,统一兜底为 16px */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+/* 等宽数字对齐(统计/倒数) */
 .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/* iOS inset grouped 卡 */
+.ios-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* 分组小标题 */
+.ios-group-label {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: rgba(60, 60, 67, 0.6);
+}
+
+/* 安全区底部留白(刘海屏 home 横条) */
+.safe-bottom {
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
+/* 面板防滚动穿透 */
+.no-scroll-chain {
+  overscroll-behavior: contain;
 }

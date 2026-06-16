@@ -1,14 +1,21 @@
 {
-  "generated": "2026-06-16T06:05:00Z",
+  "generated": "2026-06-16T06:55:00Z",
   "sections": [
     {
       "id": "mockups",
       "label": "Mockups",
       "groups": [
         {
+          "slug": "ios-redesign",
+          "files": [
+            { "label": "★ iOS / DreamDays 风(新)", "path": "mockups/ios-redesign/index.html" }
+          ]
+        },
+        {
           "slug": "stay-tracker",
           "files": [
-            { "label": "在港天数(主界面)", "path": "mockups/stay-tracker/index.html" }
+            { "label": "editorial 旧版(主界面)", "path": "mockups/stay-tracker/index.html" },
+            { "label": "editorial 旧版(到期提醒)", "path": "mockups/stay-tracker/reminders.html" }
           ]
         }
       ]
