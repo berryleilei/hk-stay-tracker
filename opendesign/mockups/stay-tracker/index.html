@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>在港天数 · 港漂全家打卡 mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: {
+      sans: ['-apple-system','BlinkMacSystemFont','"PingFang HK"','"Noto Sans TC"','"Microsoft JhengHei"','sans-serif'],
+      mono: ['"SF Mono"','ui-monospace','Menlo','monospace'],
+    } } } };
+  </script>
+  <style>
+    :root { color-scheme: light; }
+    body { -webkit-font-smoothing: antialiased; background: #f6f6f5; }
+    .divider { border-color: rgba(0,0,0,0.07); }
+    .tabular { font-variant-numeric: tabular-nums; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body class="font-sans text-gray-900">
+
+  <!-- ═══════════ 主屏:家庭总览 ═══════════ -->
+  <div id="screen-home" class="mx-auto max-w-md px-5 pb-32 pt-8 sm:max-w-lg">
+    <header class="mb-6 flex items-end justify-between">
+      <div>
+        <h1 class="text-[26px] font-bold leading-none tracking-tight">在港天数</h1>
+        <p class="mt-1.5 text-[13px] text-gray-500">全家出入境打卡 · 续签与税务自查</p>
+      </div>
+      <div class="text-right">
+        <p class="font-mono text-[10px] uppercase tracking-widest text-gray-400">Today</p>
+        <p class="font-mono text-[13px] tabular text-gray-600">2026-06-16</p>
+      </div>
+    </header>
+
+    <div class="mb-3 flex items-center gap-2.5">
+      <span class="font-mono text-[11px] text-gray-400">01</span>
+      <h2 class="text-[13px] font-bold tracking-tight">家庭成员</h2>
+      <span class="h-px flex-1 border-t divider"></span>
+      <span class="font-mono text-[10px] text-gray-400">3 人</span>
+    </div>
+
+    <!-- 成员卡(点击进详情) -->
+    <button class="mb-3 block w-full rounded-xl border border-gray-200/70 bg-white p-4 text-left transition active:scale-[0.99]" onclick="openPerson('me')">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-900 text-[13px] font-bold text-white">我</span>
+          <div><p class="text-[14px] font-bold leading-tight">我</p><p class="font-mono text-[10px] uppercase tracking-wide text-gray-400">主申请人</p></div>
+        </div>
+        <div class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-600"></span><span class="text-[12px] font-bold text-emerald-700">在港 · 46 天</span></div>
+      </div>
+      <div class="mt-3.5 flex items-end justify-between">
+        <div><p class="font-mono text-[10px] text-gray-400">滚动 12 月在港</p><p class="mt-0.5 text-[20px] font-bold leading-none tabular">198 <span class="text-[12px] font-normal text-gray-400">/ 365 天</span></p></div>
+        <div class="text-right"><p class="font-mono text-[10px] text-gray-400">永居进度</p><p class="mt-0.5 font-mono text-[13px] tabular text-gray-600">1 年 10 月 / 7 年</p></div>
+      </div>
+      <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100"><div class="h-full rounded-full bg-gray-800" style="width:26%"></div></div>
+    </button>
+
+    <button class="mb-3 block w-full rounded-xl border border-gray-200/70 bg-white p-4 text-left transition active:scale-[0.99]" onclick="openPerson('wife')">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-400 text-[13px] font-bold text-white">太</span>
+          <div><p class="text-[14px] font-bold leading-tight">太太</p><p class="font-mono text-[10px] uppercase tracking-wide text-gray-400">配偶 · 受养人</p></div>
+        </div>
+        <div class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-emerald-600"></span><span class="text-[12px] font-bold text-emerald-700">在港 · 46 天</span></div>
+      </div>
+      <div class="mt-3.5 flex items-end justify-between">
+        <div><p class="font-mono text-[10px] text-gray-400">滚动 12 月在港</p><p class="mt-0.5 text-[20px] font-bold leading-none tabular">175 <span class="text-[12px] font-normal text-gray-400">/ 365 天</span></p></div>
+        <div class="text-right"><p class="font-mono text-[10px] text-gray-400">永居进度</p><p class="mt-0.5 font-mono text-[13px] tabular text-gray-600">1 年 10 月 / 7 年</p></div>
+      </div>
+      <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100"><div class="h-full rounded-full bg-gray-800" style="width:26%"></div></div>
+    </button>
+
+    <button class="mb-3 block w-full rounded-xl border border-gray-200/70 bg-white p-4 text-left transition active:scale-[0.99]" onclick="openPerson('kid')">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-300 text-[13px] font-bold text-white">囡</span>
+          <div><p class="text-[14px] font-bold leading-tight">囡囡</p><p class="font-mono text-[10px] uppercase tracking-wide text-gray-400">子女 · 受养人</p></div>
+        </div>
+        <div class="flex items-center gap-1.5"><span class="h-2 w-2 rounded-full bg-gray-300"></span><span class="text-[12px] font-bold text-gray-400">已离港 6 天</span></div>
+      </div>
+      <div class="mt-3.5 flex items-end justify-between">
+        <div><p class="font-mono text-[10px] text-gray-400">滚动 12 月在港</p><p class="mt-0.5 text-[20px] font-bold leading-none tabular">210 <span class="text-[12px] font-normal text-gray-400">/ 365 天</span></p></div>
+        <div class="text-right"><p class="font-mono text-[10px] text-gray-400">永居进度</p><p class="mt-0.5 font-mono text-[13px] tabular text-gray-600">1 年 10 月 / 7 年</p></div>
+      </div>
+      <div class="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100"><div class="h-full rounded-full bg-gray-800" style="width:26%"></div></div>
+    </button>
+
+    <div class="mt-6 mb-3 flex items-center gap-2.5">
+      <span class="font-mono text-[11px] text-gray-400">02</span>
+      <h2 class="text-[13px] font-bold tracking-tight">关键日期</h2>
+      <span class="h-px flex-1 border-t divider"></span>
+    </div>
+    <div class="rounded-xl border border-gray-200/70 bg-white p-4">
+      <div class="flex items-center justify-between">
+        <div><p class="text-[13px] font-bold">签证续签到期</p><p class="mt-0.5 font-mono text-[11px] tabular text-gray-400">2027-03-31 · 全家</p></div>
+        <span class="rounded-md bg-gray-100 px-2.5 py-1 font-mono text-[11px] tabular text-gray-600">还有 288 天</span>
+      </div>
+    </div>
+
+    <p class="mt-5 px-1 text-[11px] leading-relaxed text-gray-400">天数口径:入境日与离境日两端均计入在港天数。每位成员独立计算。本工具仅作个人记录与自查,不构成续签 / 税务 / 永居资格的法律意见。数据仅存于本机浏览器,不上传。</p>
+  </div>
+
+  <!-- ═══════════ 详情:某个成员 ═══════════ -->
+  <div id="screen-person" hidden class="mx-auto max-w-md px-5 pb-32 pt-8 sm:max-w-lg">
+    <header class="mb-6 flex items-center gap-3">
+      <button class="text-[20px] leading-none text-gray-400" onclick="goHome()">‹</button>
+      <div class="flex items-center gap-2">
+        <h1 id="d-name" class="text-[22px] font-bold leading-none tracking-tight">我</h1>
+        <span id="d-role" class="rounded-md bg-gray-100 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-gray-500">主申请人</span>
+      </div>
+    </header>
+
+    <section class="mb-7 rounded-xl border border-gray-200/70 bg-white p-5">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span id="d-dot" class="h-2.5 w-2.5 rounded-full bg-emerald-600"></span>
+          <span id="d-status" class="text-[15px] font-bold text-emerald-700">在港中</span>
+        </div>
+        <p id="d-since" class="font-mono text-[11px] tabular text-gray-400">自 2026-05-02</p>
+      </div>
+      <div class="mt-4 flex items-baseline gap-2">
+        <span id="d-streak" class="text-[44px] font-bold leading-none tabular tracking-tight">46</span>
+        <span id="d-streak-label" class="pb-1 text-[14px] text-gray-500">天 · 本次连续在港</span>
+      </div>
+    </section>
+
+    <div class="mb-3 flex items-center gap-2.5">
+      <span class="font-mono text-[11px] text-gray-400">01</span>
+      <h2 class="text-[13px] font-bold tracking-tight">关键统计</h2>
+      <span class="h-px flex-1 border-t divider"></span>
+    </div>
+    <section class="mb-4 grid grid-cols-2 gap-3">
+      <div class="rounded-xl border border-gray-200/70 bg-white p-4">
+        <p class="text-[12px] text-gray-500">累计在港总天数</p>
+        <p id="d-total" class="mt-2 text-[30px] font-bold leading-none tabular">412</p>
+        <p id="d-first" class="mt-2 font-mono text-[10px] tabular text-gray-400">自 2024-08-15 首次入境</p>
+      </div>
+      <div class="rounded-xl border border-gray-200/70 bg-white p-4">
+        <p class="text-[12px] text-gray-500">累计离港天数</p>
+        <p id="d-away" class="mt-2 text-[30px] font-bold leading-none tabular text-gray-400">258</p>
+        <p id="d-segs" class="mt-2 font-mono text-[10px] tabular text-gray-400">共 9 段记录</p>
+      </div>
+      <div class="col-span-2 rounded-xl border border-gray-200/70 bg-white p-4">
+        <div class="flex items-start justify-between">
+          <div><p class="text-[12px] text-gray-500">滚动 12 个月内在港</p>
+            <p class="mt-2 flex items-baseline gap-1.5"><span id="d-roll" class="text-[30px] font-bold leading-none tabular">198</span><span class="text-[13px] text-gray-400 tabular">/ 365 天</span></p></div>
+          <span class="rounded-md bg-gray-100 px-2 py-1 font-mono text-[10px] text-gray-500">续签佐证</span>
+        </div>
+        <div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-gray-100"><div id="d-roll-bar" class="h-full rounded-full bg-gray-800" style="width:54%"></div></div>
+      </div>
+      <div class="col-span-2 rounded-xl border border-amber-200 bg-amber-50/50 p-4">
+        <div class="flex items-start justify-between">
+          <div><p class="text-[12px] text-amber-800/80">滚动 12 个月 · 183 天税务阈值</p>
+            <p class="mt-2 flex items-baseline gap-1.5"><span id="d-tax" class="text-[30px] font-bold leading-none tabular text-amber-700">198</span><span class="text-[13px] text-amber-700/70 tabular">/ 183 天</span></p></div>
+          <span id="d-tax-badge" class="rounded-md bg-amber-100 px-2 py-1 font-mono text-[10px] font-bold text-amber-700">已达阈值</span>
+        </div>
+        <div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-amber-100"><div id="d-tax-bar" class="h-full rounded-full bg-amber-500" style="width:100%"></div></div>
+      </div>
+    </section>
+
+    <div class="mb-4 mt-7 flex items-center gap-2.5">
+      <span class="font-mono text-[11px] text-gray-400">02</span>
+      <h2 class="text-[13px] font-bold tracking-tight">出入境记录</h2>
+      <span class="h-px flex-1 border-t divider"></span>
+      <button class="font-mono text-[11px] text-gray-500 underline-offset-2 hover:underline" onclick="openSheet()">＋ 补录</button>
+    </div>
+    <section class="rounded-xl border border-gray-200/70 bg-white">
+      <div class="flex items-center gap-3 border-b divider px-4 py-3"><span class="font-mono text-[12px] tabular text-gray-700">2026-05-02</span><span class="flex items-center gap-1.5 text-[13px] font-bold text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>入境</span><span class="ml-auto font-mono text-[11px] tabular text-gray-400">至今 46 天</span></div>
+      <div class="flex items-center gap-3 border-b divider px-4 py-3"><span class="font-mono text-[12px] tabular text-gray-700">2026-04-10</span><span class="flex items-center gap-1.5 text-[13px] font-bold text-gray-500"><span class="h-1.5 w-1.5 rounded-full bg-gray-300"></span>离境</span><span class="ml-auto font-mono text-[11px] tabular text-gray-400">离港 22 天</span></div>
+      <div class="flex items-center gap-3 border-b divider px-4 py-3"><span class="font-mono text-[12px] tabular text-gray-700">2026-02-15</span><span class="flex items-center gap-1.5 text-[13px] font-bold text-emerald-700"><span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span>入境</span><span class="ml-auto font-mono text-[11px] tabular text-gray-400">在港 55 天</span></div>
+      <div class="flex items-center gap-3 border-b divider px-4 py-3"><span class="font-mono text-[12px] tabular text-gray-700">2025-12-20</span><span class="flex items-center gap-1.5 text-[13px] font-bold text-gray-500"><span class="h-1.5 w-1.5 rounded-full bg-gray-300"></span>离境</span><span class="ml-auto font-mono text-[11px] tabular text-gray-400">离港 57 天</span></div>
+      <div class="flex items-center gap-3 px-4 py-3"><span class="font-mono text-[12px] tabular text-gray-400">2025-09-01</span><span class="flex items-center gap-1.5 text-[13px] font-medium text-gray-400"><span class="h-1.5 w-1.5 rounded-full bg-gray-300"></span>入境</span><span class="ml-auto font-mono text-[11px] tabular text-gray-300">更早 5 条 ↓</span></div>
+    </section>
+
+    <p class="mt-5 px-1 text-[11px] leading-relaxed text-gray-400">天数口径:入境日与离境日两端均计入在港天数(香港入境处通行算法)。本工具仅作个人记录与自查,不构成续签 / 税务 / 永居资格的法律意见。</p>
+  </div>
+
+  <!-- ═══════════ 底部主操作:记一笔 ═══════════ -->
+  <div class="fixed inset-x-0 bottom-0 border-t divider bg-white/90 px-5 py-3 backdrop-blur">
+    <button class="mx-auto flex w-full max-w-md items-center justify-center gap-2 rounded-xl bg-gray-900 py-3.5 text-[15px] font-bold text-white transition active:scale-[0.98]" onclick="openSheet()">
+      ＋ 记一笔
+    </button>
+  </div>
+
+  <!-- ═══════════ 记一笔面板(打卡 = 补打卡,日期可改) ═══════════ -->
+  <div id="sheet" hidden class="fixed inset-0 z-50">
+    <div class="absolute inset-0 bg-black/30" onclick="closeSheet()"></div>
+    <div class="absolute inset-x-0 bottom-0 mx-auto max-w-md rounded-t-2xl bg-white px-5 pb-8 pt-5 sm:max-w-lg">
+      <div class="mx-auto mb-4 h-1 w-10 rounded-full bg-gray-200"></div>
+      <h2 class="mb-4 text-[16px] font-bold">记一笔</h2>
+
+      <p class="mb-2 text-[12px] text-gray-500">谁(可多选,全家一起就全选)</p>
+      <div class="mb-5 flex flex-wrap gap-2">
+        <button class="rounded-lg bg-gray-900 px-3.5 py-1.5 text-[13px] font-medium text-white">我 ✓</button>
+        <button class="rounded-lg bg-gray-900 px-3.5 py-1.5 text-[13px] font-medium text-white">太太 ✓</button>
+        <button class="rounded-lg bg-gray-100 px-3.5 py-1.5 text-[13px] font-medium text-gray-500">囡囡</button>
+      </div>
+
+      <p class="mb-2 text-[12px] text-gray-500">方向</p>
+      <div class="mb-5 grid grid-cols-2 gap-3">
+        <button class="rounded-xl border border-emerald-200 bg-emerald-50 py-3 text-[14px] font-bold text-emerald-700">＋ 入境</button>
+        <button class="rounded-xl border border-gray-200 bg-white py-3 text-[14px] font-bold text-gray-500">－ 离境</button>
+      </div>
+
+      <p class="mb-2 text-[12px] text-gray-500">日期</p>
+      <button class="mb-2 flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-3 text-left">
+        <span class="font-mono text-[14px] tabular text-gray-800">2026-06-16</span>
+        <span class="font-mono text-[11px] text-gray-400">今天 · 点改 ›</span>
+      </button>
+      <p class="mb-5 text-[11px] text-gray-400">选过去的日期 = 补录历史打卡(忘了打 / 刚开始用都能补)。</p>
+
+      <button class="w-full rounded-xl bg-gray-900 py-3.5 text-[15px] font-bold text-white" onclick="closeSheet()">保存</button>
+    </div>
+  </div>
+
+  <script>
+    const PEOPLE = {
+      me:   { name:'我',   role:'主申请人',     inHK:true,  since:'2026-05-02', streak:46, total:412, away:258, segs:9,  roll:198, tax:198, first:'2024-08-15' },
+      wife: { name:'太太', role:'配偶 · 受养人', inHK:true,  since:'2026-05-02', streak:46, total:360, away:310, segs:11, roll:175, tax:175, first:'2024-08-15' },
+      kid:  { name:'囡囡', role:'子女 · 受养人', inHK:false, since:'2026-06-10', streak:6,  total:430, away:240, segs:8,  roll:210, tax:210, first:'2024-08-15' },
+    };
+    function openPerson(who){ const d=PEOPLE[who];
+      document.getElementById('screen-home').hidden=true;
+      document.getElementById('screen-person').hidden=false;
+      set('d-name',d.name); set('d-role',d.role);
+      set('d-status', d.inHK?'在港中':('已离港 '+d.streak+' 天'));
+      document.getElementById('d-status').className=d.inHK?'text-[15px] font-bold text-emerald-700':'text-[15px] font-bold text-gray-400';
+      document.getElementById('d-dot').className=d.inHK?'h-2.5 w-2.5 rounded-full bg-emerald-600':'h-2.5 w-2.5 rounded-full bg-gray-300';
+      set('d-since','自 '+d.since); set('d-streak',d.streak);
+      set('d-streak-label', d.inHK?'天 · 本次连续在港':'天 · 已离港');
+      set('d-total',d.total); set('d-away',d.away); set('d-segs','共 '+d.segs+' 段记录');
+      set('d-first','自 '+d.first+' 首次入境'); set('d-roll',d.roll); set('d-tax',d.tax);
+      document.getElementById('d-roll-bar').style.width=Math.round(d.roll/365*100)+'%';
+      document.getElementById('d-tax-bar').style.width=Math.min(100,Math.round(d.tax/183*100))+'%';
+      document.getElementById('d-tax-badge').textContent=(d.tax>=183)?'已达阈值':'未达阈值';
+      window.scrollTo(0,0);
+    }
+    function goHome(){ document.getElementById('screen-person').hidden=true; document.getElementById('screen-home').hidden=false; window.scrollTo(0,0); }
+    function openSheet(){ document.getElementById('sheet').hidden=false; }
+    function closeSheet(){ document.getElementById('sheet').hidden=true; }
+    function set(id,v){ document.getElementById(id).textContent=v; }
+  </script>
+</body>
+</html>

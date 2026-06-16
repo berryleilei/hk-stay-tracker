@@ -1,0 +1,17 @@
+{
+  "generated": "2026-06-16T06:05:00Z",
+  "sections": [
+    {
+      "id": "mockups",
+      "label": "Mockups",
+      "groups": [
+        {
+          "slug": "stay-tracker",
+          "files": [
+            { "label": "在港天数(主界面)", "path": "mockups/stay-tracker/index.html" }
+          ]
+        }
+      ]
+    }
+  ]
+}
