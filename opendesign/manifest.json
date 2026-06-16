@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-16T11:30:00Z",
+  "generated": "2026-06-16T06:55:00Z",
   "sections": [
     {
       "id": "mockups",
@@ -8,8 +8,7 @@
         {
           "slug": "ios-redesign",
           "files": [
-            { "label": "★ iOS / DreamDays 风(主)", "path": "mockups/ios-redesign/index.html" },
-            { "label": "★ 汇率功能(新)", "path": "mockups/ios-redesign/rates.html" }
+            { "label": "★ iOS / DreamDays 风(新)", "path": "mockups/ios-redesign/index.html" }
           ]
         },
         {

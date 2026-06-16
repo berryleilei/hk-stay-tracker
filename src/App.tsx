@@ -14,15 +14,13 @@ import {
   upsertMember,
   upsertReminder,
 } from './lib/storage';
-import { cachedRate, fetchRate, RateData } from './lib/rates';
 import { Home } from './components/Home';
 import { PersonDetail } from './components/PersonDetail';
 import { RecordSheet } from './components/RecordSheet';
 import { MemberSheet } from './components/MemberSheet';
 import { ReminderSheet } from './components/ReminderSheet';
-import { RatesDetail } from './components/RatesDetail';
 
-type View = { screen: 'home' } | { screen: 'person'; memberId: string } | { screen: 'rates' };
+type View = { screen: 'home' } | { screen: 'person'; memberId: string };
 
 export default function App() {
   const [data, setData] = useState<AppData>(() => load());
@@ -40,24 +38,12 @@ export default function App() {
     reminder: null,
   });
   const fileInput = useRef<HTMLInputElement>(null);
-  const [rate, setRate] = useState<RateData | null>(() => cachedRate());
-  const [rateError, setRateError] = useState(false);
 
   const today = useMemo(() => todayISO(), []);
 
   useEffect(() => {
     save(data);
   }, [data]);
-
-  // 拉取实时汇率(失败回退到缓存)
-  useEffect(() => {
-    fetchRate(today, Date.now())
-      .then((r) => {
-        setRate(r);
-        setRateError(false);
-      })
-      .catch(() => setRateError(true));
-  }, [today]);
 
   const currentMember =
     view.screen === 'person' ? data.members.find((m) => m.id === view.memberId) : undefined;
@@ -155,21 +141,11 @@ export default function App() {
 
   return (
     <>
-      {view.screen === 'rates' ? (
-        <RatesDetail
-          rate={rate}
-          error={rateError}
-          today={today}
-          onBack={() => setView({ screen: 'home' })}
-        />
-      ) : view.screen === 'home' || !currentMember ? (
+      {view.screen === 'home' || !currentMember ? (
         <Home
           data={data}
           today={today}
-          rate={rate}
-          rateError={rateError}
           onOpenPerson={(id) => setView({ screen: 'person', memberId: id })}
-          onOpenRates={() => setView({ screen: 'rates' })}
           onAddMember={() => setMemberSheet({ open: true, member: null })}
           onAddReminder={() => setReminderSheet({ open: true, reminder: null })}
           onEditReminder={(reminder) => setReminderSheet({ open: true, reminder })}
@@ -189,11 +165,8 @@ export default function App() {
         />
       )}
 
-      {/* 底部毛玻璃「记一笔」(安全区);汇率页不显示 */}
-      <div
-        hidden={view.screen === 'rates'}
-        className="safe-bottom fixed inset-x-0 bottom-0 border-t border-[rgba(60,60,67,0.12)] bg-ios-bg/80 px-5 pt-3 backdrop-blur-xl"
-      >
+      {/* 底部毛玻璃「记一笔」(安全区) */}
+      <div className="safe-bottom fixed inset-x-0 bottom-0 border-t border-[rgba(60,60,67,0.12)] bg-ios-bg/80 px-5 pt-3 backdrop-blur-xl">
         <button
           onClick={() =>
             setRecordSheet({
