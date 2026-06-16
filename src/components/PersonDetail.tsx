@@ -69,12 +69,13 @@ export function PersonDetail({
         <Card className="mb-5 divide-y divide-[rgba(60,60,67,0.12)]">
           <Row label="累计在港总天数" value={`${s.totalInHK} 天`} />
           <Row label="累计离港天数" value={`${s.totalAway} 天`} muted />
-          {s.lastDeparture && (
-            <Row
-              label="上一次离港"
-              value={`${s.lastDeparture} · ${s.daysSinceLastDeparture} 天前`}
-            />
-          )}
+          <Row
+            label="上一次离港"
+            value={
+              s.lastDeparture ? `${s.lastDeparture} · ${s.daysSinceLastDeparture} 天前` : '—'
+            }
+            muted={!s.lastDeparture}
+          />
           <div className="px-4 py-3.5">
             <div className="flex items-center justify-between">
               <span className="text-[16px]">
